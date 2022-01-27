@@ -2,9 +2,22 @@ import Head  from 'next/head'
 import styles from './styles.module.scss'
 import Prismic from '@prismicio/client'
 import { getPrismicClient } from '../../services/prismic'
+import { GetStaticProps } from 'next'
+import {RichText} from 'prismic-dom'
+import Link from 'next/link'
 
+type Post ={
+    slug: string,
+    title: string,
+    excerpt: string,
+    updatedAt: string,
+}
 
-export default function Posts(){
+interface PostsProps {
+    posts: Post[]
+}
+
+export default function Posts({posts}: PostsProps) {
     return(
         <>
           <Head>
@@ -13,26 +26,16 @@ export default function Posts(){
            
           <main className={styles.container}>
                     <div className={styles.posts}>
-                        <a href='#'>
-                            <time>12 de abril de 2022</time>
-                            <strong>Do back ao mobile: de onde surgiu a programação fullstack</strong>
-                            <p>O mercado da programação é bastante exigente no que se refere às novas tecnologias e conhecimentos em termos de carreiras e experiências. A comunidade é extremamente apaixonada no que faz e precisa, constantemente, se manter atualizada nas tendências do mercado.</p>
-                        </a>
-                        <a>
-                            <time>12 de abril de 2022</time>
-                            <strong>Do back ao mobile: de onde surgiu a programação fullstack</strong>
-                            <p>O mercado da programação é bastante exigente no que se refere às novas tecnologias e conhecimentos em termos de carreiras e experiências. A comunidade é extremamente apaixonada no que faz e precisa, constantemente, se manter atualizada nas tendências do mercado.</p>
-                        </a>
-                        <a>
-                            <time>12 de abril de 2022</time>
-                            <strong>Do back ao mobile: de onde surgiu a programação fullstack</strong>
-                            <p>O mercado da programação é bastante exigente no que se refere às novas tecnologias e conhecimentos em termos de carreiras e experiências. A comunidade é extremamente apaixonada no que faz e precisa, constantemente, se manter atualizada nas tendências do mercado.</p>
-                        </a>
-                        <a>
-                            <time>12 de abril de 2022</time>
-                            <strong>Do back ao mobile: de onde surgiu a programação fullstack</strong>
-                            <p>O mercado da programação é bastante exigente no que se refere às novas tecnologias e conhecimentos em termos de carreiras e experiências. A comunidade é extremamente apaixonada no que faz e precisa, constantemente, se manter atualizada nas tendências do mercado.</p>
-                        </a>
+                       {posts.map(post =>(
+                        <Link href={`/posts/${post.slug}`}>
+                            <a key={post.slug}>
+                                <time>{post.updatedAt}</time>
+                                <strong>{post.title}</strong>
+                                <p>{post.excerpt}</p>
+                            </a>
+                        </Link>   
+                       ))}
+                        
                     </div>
             </main>
 
@@ -46,16 +49,27 @@ export  const getStaticProps: GetStaticProps = async () => {
 
 
     const response = await prismic.query([
-        Prismic.predicates.at('document.type', 'publication')
+        Prismic.predicates.at('document.type', 'posts')
     ],
-    {fetch: ['publication.title', 'publication.content'],
+    {fetch: ['posts.title', 'posts.content'],
      pageSize: 100,  } 
     )
 
-    console.log(JSON.stringify(response, null, 2));
+   const posts = response.results.map(post =>{
+        return{
+            slug: post.uid,
+            title: RichText.asText(post.data.title),
+            excerpt: post.data.content.find(content => content.type === 'paragraph')?.text ?? '',
+            updatedAt: new Date(post.last_publication_date).toLocaleDateString('pt-BR',{
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
+            })
+        }
+    })
 
     return{
-        props: {}
+        props: {posts}
     }
 
 }
