@@ -26,7 +26,7 @@ export function SubscriberButton({priceId}: SubscribeButtonProps){
 
 
         if(session.activeSubscription){
-            router.push('./posts')
+            router.push('/posts')
             return;
         }
 

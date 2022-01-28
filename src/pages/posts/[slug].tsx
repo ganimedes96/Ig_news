@@ -40,22 +40,16 @@ export default function Post({post}: PostsProps){
 
 
 
-export const getStaticPaths = () =>{
-    return{
-        paths: [],
-        fallback: 'blocking'
-    }
-}
 
 
 export const getServerSideProps: GetServerSideProps = async ({req, params})=>{
     const session = await getSession({req})
     const {slug} = params
 
-    if(!session.actveSubscription){
+    if(!session?.actveSubscription){
         return{
             redirect:{
-                destination: '/',
+                destination: `/posts/preview/${slug}`,
                 permanent:false,
             }
         }
