@@ -36,10 +36,10 @@
             }
         }
         &.previewContent{
+            background: linear-gradient(var(--gray-100), transparent);
+             background-clip: text;
+             -webkit-text-fill-color: transparent;
     }
-        background: linear-gradient(var(--gray-100), transparent);
-         background-clip: text;
-         -webkit-text-fill-color: transparent;
     }
 }
 
