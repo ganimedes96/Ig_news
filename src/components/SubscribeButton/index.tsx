@@ -7,11 +7,8 @@ import styles from './styles.module.scss';
 
 
 
-interface SubscribeButtonProps{
-    priceId: string;
 
-}
-export function SubscriberButton({priceId}: SubscribeButtonProps){
+export function SubscriberButton(){
     
     const { data: session } = useSession()
 
