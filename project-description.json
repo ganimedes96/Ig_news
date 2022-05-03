@@ -57,6 +57,9 @@
       }
       
     ],
+    "videos": [
+        "https://raw.githubusercontent.com/ganimedes96/Ig_news/main/.github/ig_news.mp4"
+    ],
     "images": [
      "https://raw.githubusercontent.com/ganimedes96/Ig_news/main/.github/image.jpg",
      "https://raw.githubusercontent.com/ganimedes96/Ig_news/main/.github/image1.jpg",
