@@ -32,27 +32,27 @@ describe('Post preview page', () => {
         expect(screen.getByText(/Wanna continue reading?/i)).toBeInTheDocument()
        
     })
-    // it('redirects user to full post when user is subscribed', async() => {
+    it('redirects user to full post when user is subscribed', async() => {
        
-    //     const useSessionMocked = mocked(useSession)
-    //     const useRouterMocked =mocked(useRouter)
-    //     const pushMocked = jest.fn()
+        const useSessionMocked = mocked(useSession)
+        const useRouterMocked =mocked(useRouter)
+        const pushMocked = jest.fn()
 
 
-    //     useSessionMocked.mockReturnValueOnce([
-    //         {activeSubscription: 'fake-active-subscription'},
-    //         false
-    //      ]as any)
+        useSessionMocked.mockReturnValueOnce([
+            {activeSubscription: 'fake-active-subscription'},
+            false
+         ]as any)
 
-    //      useRouterMocked.mockReturnValueOnce({
-    //          push: pushMocked,
+         useRouterMocked.mockReturnValueOnce({
+             push: pushMocked,
 
-    //      }as any)
+         }as any)
 
-    //      render(<Post post={post}/>)
+         render(<Post post={post}/>)
 
-    //    expect(pushMocked).toHaveBeenCalledWith("/post/my-new-post")
-    // })
+       expect(pushMocked).toHaveBeenCalledWith("/post/my-new-post")
+    })
 
 
     // it('loads initial data',async() => {
