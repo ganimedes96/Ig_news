@@ -56,7 +56,7 @@ Technologies that I used to develop this web client
 **Clone the project and access the folder**
 
 ```bash
-$ git clone https://github.com/ganimedes96/dtmoney && cd dtmoney
+$ git clone https://github.com/ganimedes96/Ig_news && cd Ig_news
 ```
 
 **Follow the steps below to install the required dependencies**
@@ -76,7 +76,7 @@ $ yarn start
 
 ```bash
 # Clone your fork
-$ git clone your-fork-url && cd dtmoney
+$ git clone your-fork-url && cd Ig_news
 
 # Create a branch with your feature
 $ git checkout -b feature
